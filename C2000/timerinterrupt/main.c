@@ -40,8 +40,8 @@ int main(void)
     IER |= M_INT1;  /*Enable the PIE group of Cpu timer 0 interrupt*/
     IER |= M_INT13; /*Enable the PIE group of Cpu timer 1 interrupt*/
     IER |= M_INT14; /*Enable the PIE group of Cpu timer 2 interrupt*/
-    PieCtrlRegs.PIECTRL.bit.ENPIE = 1; // Enable the PIE block
-    PieCtrlRegs.PIEIER1.bit.INTx7 = 1;
+    PieCtrlRegs.PIECTRL.bit.ENPIE = 1;  // Enable the PIE block
+    PieCtrlRegs.PIEIER1.bit.INTx7 = 1;  /*Enable the 7th interrupt of the Group 1*/
     EINT;  // Enable Global interrupt INTM
     ERTM;  // Enable Global realtime interrupt DBGM
 
