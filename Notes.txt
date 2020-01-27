@@ -1,0 +1,94 @@
+1 - Creating CCS Project
+    - Paths to be linked
+        - C:\ti\controlSUITE\device_support\F2837xD\v210\F2837xD_headers\include
+        - C:\ti\controlSUITE\device_support\F2837xD\v210\F2837xD_common\include
+        - (and other source files)
+    - Predefinitions
+        - CPU1
+        - _LAUNCHXL_F28379D
+        - _FLASH
+    - Headers to be added
+        - #include <F2837xD_Device.h>
+        - #include <F2837xD_Examples.h>
+
+2 - Initialization operations   (Check https://github.com/hakansrc/Public_Notes/blob/master/C2000/initialization/main.c)
+    - 
+        InitSysCtrl();  /*initialize the peripheral clocks*/
+    -
+        InitPieCtrl();  /*initialize the PIE table (interrupt related)*/
+        IER = 0x0000;   /*clear the Interrupt Enable Register   (IER)*/
+        IFR = 0x0000;   /*clear the Interrupt Flag Register     (IFR)*/
+        InitPieVectTable();    
+    -   
+        EALLOW;
+        CpuSysRegs.PCLKCR0.bit.TBCLKSYNC = 0;   /*stop the TimeBase clock for later synchronization*/
+        CpuSysRegs.PCLKCR0.bit.GTBCLKSYNC = 0;  /*stop the global TimeBase clock for later synchronization*/
+        EDIS;
+    -
+    /*Initialize cpu timers*/
+    InitCpuTimers();
+    ConfigCpuTimer(&CpuTimer0, 200, 1000000); //1 seconds
+    ConfigCpuTimer(&CpuTimer1, 200, 1000000); //1 seconds
+    ConfigCpuTimer(&CpuTimer2, 200, 1000000); //1 seconds
+    CpuTimer0Regs.TCR.all = 0x4000; // enable cpu timer interrupt
+    CpuTimer1Regs.TCR.all = 0x4000; // enable cpu timer interrupt
+    CpuTimer2Regs.TCR.all = 0x4000; // enable cpu timer interrupt    
+
+
+3 - Interrupt Operations    (Check https://github.com/hakansrc/Public_Notes/blob/master/C2000/timerinterrupt/main.c)
+    - Theoratical base
+        - What is an interrupt, Why do we need it?
+        - Why periodic interrupts are important ? 
+        - C2000 Interrupt structure 
+    - Creating a basic timer interrupt service routine (followings are the steps for timer interrupt)
+        - 
+            IER |= M_INT1;  /*Enable the PIE group of Cpu timer 0 interrupt*/
+            IER |= M_INT13; /*Enable the PIE group of Cpu timer 1 interrupt*/
+            IER |= M_INT14; /*Enable the PIE group of Cpu timer 2 interrupt*/
+        - PieCtrlRegs.PIECTRL.bit.ENPIE = 1;    // Enable the PIE block
+        - PieCtrlRegs.PIEIER1.bit.INTx7 = 1;    /*Enable the 7th interrupt of the Group 1*/
+        - EINT;  // Enable Global interrupt INTM
+        - ERTM;  // Enable Global realtime interrupt DBGM
+        -
+            EALLOW;
+            PieVectTable.TIMER0_INT = &cpu_timer0_isr;
+            PieVectTable.TIMER1_INT = &cpu_timer1_isr;
+            PieVectTable.TIMER2_INT = &cpu_timer2_isr;
+            EDIS;
+4 - PWM Module  (Check https://github.com/hakansrc/Public_Notes/blob/master/C2000/pwminterrupt/main.c)
+    - Theoratical base
+        - C2000 PWM module structure 
+            - TBCTR
+                - UP, DOWN, UP-DOWN
+            - PWM interrupt structure
+    - Creating an example PWM interrupt 
+        -
+            EALLOW;
+            ClkCfgRegs.PERCLKDIVSEL.bit.EPWMCLKDIV = 0; // EPWM Clock Divide Select: /1 of PLLSYSCLK
+            EDIS;
+        -   Initialize the pwm registers         
+        -   PieCtrlRegs.PIEIER3.bit.INTx1 = 1;  /*Enable the 1st interrupt of the Group 3, which is for epwm1 interrupt*/
+        -   IER |= M_INT3;   /*Enable the PIE group of Epwm1 interrupt*/
+        -
+            EALLOW;
+            PieVectTable.EPWM1_INT = &epwm1_isr;        /*specify the interrupt service routine (ISR) address to the PIE table*/
+            EDIS;
+        -
+            EALLOW;
+            CpuSysRegs.PCLKCR0.bit.TBCLKSYNC = 1;   /*start the TimeBase clock */
+            CpuSysRegs.PCLKCR0.bit.GTBCLKSYNC = 1;  /*start the global TimeBase clock */
+            EDIS;
+
+
+    - Explain Shadow Registers 
+
+5 - Protection precautions
+    - Software Protection (pooling inside while)
+    - External Signal Protection (using external circuitry)
+    - Comparator Module
+        - Theoratical explanation of the comparator module
+
+
+
+
+    
