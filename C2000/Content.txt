@@ -1,0 +1,19 @@
+Hakan (1.5 - 2 saat)
+1. CCS Proje oluşturma
+  - linklenmesi gereken dosyalar & ne işe yaradıkları
+  - TMS320F28379d için örnek bir proje oluşturma
+2. İlklendirme işlemleri
+3. Interrupt
+  -  Teorik altyapı
+  -  C2000 interrupt yapısı
+  -  Örnek bir timer interrupt oluşturma
+4. PWM modülü
+  -  Teorik altyapı
+  -  Örnek bir PWM sinyali oluşturma
+  -  Örnek bir PWM interruptı oluşturma
+  -  Shadow registerlar
+  -  Kontrol algoritması gerekirken dikkat edilmesi gereken noktalar ( multiple interrupt, arka plan görevleri)
+5. Koruma için yapılabilecekler. 
+  -  Koruma türleri 
+  -  Dış bir sinyali değerlendirerek koruma tetikleme
+  -  ADC modülü kullanılarak koruma tetikleme
