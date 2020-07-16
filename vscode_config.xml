@@ -1,0 +1,33 @@
+{
+    "window.title": "${dirty}${activeEditorLong}${separator}${rootName}${separator}${appName} - Earsis Technologies",
+    "git.ignoreLegacyWarning": true,
+    "editor.fontSize": 16,
+    "editor.maxTokenizationLineLength": 2000,
+    "editor.mouseWheelZoom": true,
+    "editor.smoothScrolling": true,
+    "editor.find.seedSearchStringFromSelection": true,
+    "editor.find.autoFindInSelection": false,
+    "editor.minimap.enabled": false,
+    "editor.minimap.showSlider": "always",
+    "workbench.enableExperiments": false,
+    "workbench.sideBar.location": "right",
+    "workbench.editor.labelFormat": "short",
+    "workbench.colorCustomizations": {
+        "statusBar.background" : "#1A1A1A",
+        "statusBar.noFolderBackground" : "#212121",
+        "statusBar.debuggingBackground": "#263238"
+    },
+    "editor.cursorWidth": 3,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.suggest.localityBonus": true,
+    "terminal.integrated.cursorBlinking": true,
+    "workbench.colorTheme": "Atom One Dark",
+    "atomKeymap.promptV3Features": true,
+    "editor.formatOnPaste": false,
+    "window.zoomLevel": 0,
+    "C_Cpp.updateChannel": "Insiders"
+     "key": "ctrl+l", "command": "extension.codeFileNav" 
+
+"terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe"
+"terminal.external.windowsExec": "C:\\Windows\\System32\\wsl.exe"
+}
