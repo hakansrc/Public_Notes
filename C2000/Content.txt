@@ -1,4 +1,4 @@
-Hakan (1.5 - 2 saat)
+Hakan (1.5 - 2.5 saat)
 1. CCS Proje oluşturma
   - linklenmesi gereken dosyalar & ne işe yaradıkları
   - TMS320F28379d için örnek bir proje oluşturma
