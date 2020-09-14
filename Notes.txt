@@ -1,4 +1,4 @@
-1 - Creating CCS Project
+1 - Creating CCS  Project
     - Paths to be linked
         - C:\ti\controlSUITE\device_support\F2837xD\v210\F2837xD_headers\include
         - C:\ti\controlSUITE\device_support\F2837xD\v210\F2837xD_common\include
